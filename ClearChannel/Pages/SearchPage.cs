@@ -30,6 +30,9 @@ namespace ClearChannel.Pages
         [FindsBy(How = How.CssSelector, Using = "[name*='keywords']")]
         private IList<IWebElement> SearchTextPlaceholderElement { get; set; }
 
+        [FindsBy(How = How.CssSelector, Using = "[type*='submit']")]
+        private IList<IWebElement> SearchIconWithInThePlaceholderElement { get; set; }
+
         /// <summary>
         /// This function helps to navigate to the home page
         /// Different pages can be skipped by appending the pages endpoint by passing it to the getUrl method.
@@ -53,7 +56,7 @@ namespace ClearChannel.Pages
             if (firstOrDefaultElement == null) throw new Exception("SearchTextplaceholder element was null");
 
             _webDriverHelpers.WaitUntilVisibleAndSendKeys(_driver, firstOrDefaultElement, valueToBeSearched);
-            firstOrDefaultElement.Submit();
+            SearchIconWithInThePlaceholderElement.FirstOrDefault()?.Click();
 
             return new ResultsPage(_driver, _webDriverHelpers);
         }
